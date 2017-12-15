@@ -1,2 +1,9 @@
 # send-that-invoice
-A small NodeJS app that emails a file from a given Dropbox folder :email: :box: 
+
+Small NodeJS app that automatically emails a file from a given Dropbox folder 📤
+
+## Develop
+// TODO
+
+## Build & Deploy
+// TODO
