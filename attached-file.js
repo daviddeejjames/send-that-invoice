@@ -3,16 +3,24 @@ const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 
 console.log('Dropbox is life');
 
-exports.getFile =  function() {
+exports.getFile = function() {
 
-  const path = dbx.filesListFolder({path: ''})
+  const file = dbx.filesListFolder({path: ''})
     .then(function (response) {
-      console.log(response.entries[0]);
-      return response.entries[0]; // Returns the first entry, but we could do this better tbh
+      //TODO: Logic that determines latest file only
+      const path = response.entries[0].path_lower;
+      return path;
+    })
+    .then(function (path) {
+      const fileResponse = dbx.filesDownload({ path: path });
+      return fileResponse;
+    })
+    .then(function (fileResponse) {
+      return fileResponse.fileBinary;
     })
     .catch(function (error) {
       console.log(error);
     });
 
-  // const file =  dbx.filesDownload({ path: path })
+  return file;
 };

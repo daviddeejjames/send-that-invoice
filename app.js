@@ -8,6 +8,7 @@ app.get('/', (req, res) => {
 });
 
 const file = attachedFile.getFile();
+console.log('promise me!');
 
 // mail.send({
 //   email: 'fake@email.com,
