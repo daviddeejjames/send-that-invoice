@@ -1,0 +1,7 @@
+{
+  "name": "Recipient",
+  "email": "test@email.com",
+  "subject": "An interesting Email Subject",
+  "text": "Hi John Doe,\n\nInvoice attached.\n\nKind Regards,\nJane Doe",
+  "file-prefix": "INV"
+}

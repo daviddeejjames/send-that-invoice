@@ -1,19 +1,42 @@
 const express = require('express');
-const attachedFile = require('./attached-file');
+const attachedFile = require('./helpers/attached-file');
+const mail = require('./helpers/mail');
+
 // Create our Express app
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Tap for mana!');
 });
 
-const file = attachedFile.getFile();
-console.log('promise me!');
+//TODO: Determine recipent based on file uploaded
+const recipient = require('./data/accolade.json');
+const filePrefix = recipient['file-prefix'];
 
-// mail.send({
-//   email: 'fake@email.com,
-//   subject: 'Password Rest'
-// });
+const file = attachedFile.getFile(filePrefix) // Get the file then...
+  .then(function (file) {
+    // Send the email!
+    const mailPromise = mail.send({
+      email: recipient.email,
+      subject: recipient.subject,
+      text: recipient.text,
+      attachments: {   // binary buffer as an attachment
+        filename: file.name,
+        content: new Buffer(file.fileBinary, 'binary'),
+        encoding: 'binary'
+      }
+    });
+    return mailPromise;
+  })
+  .then(function () {
+    console.log('The email was sent! 📤');
+    const archiveFile = attachedFile.archiveFile(filePrefix);
+    return archiveFile;
+  })
+  .catch(function (error) {
+    console.log('Email failed to send 🙃');
+    console.log(error);
+  });
 
 // Export it so we can start the site in start.js
 module.exports = app;
