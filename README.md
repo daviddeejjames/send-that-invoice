@@ -7,8 +7,9 @@ Uses the [Dropbox JS SDK](https://github.com/dropbox/dropbox-sdk-js) and
 
 ## What's left
 - [ ] Logic for determing the reciever of the PDF
+- [ ] Improve file find method using Dropbox API
 - [ ] Cron Job
-- [ ] Archiving file / renaming after email is sent
+- [x] Archiving file / renaming after email is sent
 
 ## Develop 🔧
 // TODO

@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
 const recipient = require('./data/accolade.json');
 const filePrefix = recipient['file-prefix'];
 
-const file = attachedFile.getFile(filePrefix) // Get the file then...
+// Get the file, email it then archive it!
+const file = attachedFile.getFile(filePrefix)
   .then(function (file) {
-    // Send the email!
     const mailPromise = mail.send({
       email: recipient.email,
       subject: recipient.subject,

@@ -10,6 +10,11 @@ const transport = nodemailer.createTransport({
   }
 });
 
+/**
+ * Sends the email with nodemailer!
+ *
+ * @param {Object} options - Mail options for sending
+ */
 exports.send = async (options) => {
   const text = options.text;
   const attachments = options.attachments;
