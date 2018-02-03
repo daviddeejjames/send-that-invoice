@@ -1,57 +1,59 @@
 const Dropbox = require('dropbox');
 const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 
-console.log('Dropbox is life');
+console.log('===== Dropbox is life =====');
 
 /**
+ * Searches for a file based on the file prefix and returns
+ * the file path if found.
  *
  * @param {Array} entries - File entries found from Dropbox API
  * @param {String} filePrefix - the prefix of the file we are after
  */
-function searchFilePath(entries, filePrefix) {
-  if (entries && filePrefix) {
-    let foundPath;
-    entries.forEach(element => {
-      if (element.name.startsWith(filePrefix)) {
-        foundPath = element.path_display; // Note: only works with one file of that name
+exports.searchFilePath = function (filePrefix) {
+  const filePath = dbx.filesListFolder({ path: '' })
+    .then(function (response) {
+      let filePath;
+
+      const entries = response.entries;
+      entries.forEach(element => {
+        if (element.name.startsWith(filePrefix)) {
+          filePath = element.path_display; // Note: only works with one file of that name
+        }
+      });
+
+      if(filePath) {
+        return filePath;
+      } else {
+        throw new Error('No files were found! 😞');
       }
+
+    })
+    .then(function (foundPath) {
+      console.log('Found the file @' + foundPath  + ' 🧙 ' );
+      return foundPath;
+    })
+    .catch(function (error) {
+      return Promise.reject(error);
     });
 
-    // We found the file!
-    if(foundPath) {
-      console.log('Found the file! 🧙');
-      return foundPath;
-    }
-
-    // Couldn't find the file
-    console.log('No files were found! ❓');
-    return;
-  }
-}
+  return filePath;
+};
 
 /**
  * Gets the desired file from Dropbox
  *
- * @param {String} filePrefix - the prefix of the file we are after
+ * @param {String} path - the path of the file we are after
  */
-exports.getFile = function (filePrefix) {
+exports.getFile = function (path) {
 
-  const file = dbx.filesListFolder({path: ''})
+  const file = dbx.filesDownload({ path: path })
     .then(function (response) {
-      return searchFilePath(response.entries, filePrefix);
-    })
-    .then(function (path) {
-      const fileResponse = dbx.filesDownload({ path: path });
-      return fileResponse;
-    })
-    .then(function (fileResponse) {
-      return fileResponse;
+      return response;
     })
     .catch(function (error) {
-      if ( error.status != 400 ) {
-        console.log('Error retrieving the file from Dropbox 🛑');
-        console.log(error);
-      }
+      console.log('Error downloading the file ❎');
+      return Promise.reject(error);
     });
 
   return file;
@@ -60,31 +62,24 @@ exports.getFile = function (filePrefix) {
 /**
  * Moves the file to the sent folder.
  *
- * @param {*} filePrefix - the prefix of the file we are after
+ * @param {String} path - the path of the file we are after
  */
-exports.archiveFile = function (filePrefix) {
-  const renamedFile = dbx.filesListFolder({ path: '' })
-    .then(function (response) {
-      return searchFilePath(response.entries, filePrefix);
-    })
-    .then(function (path) {
-      const fileMove = dbx.filesMove({
-        from_path: path,
-        to_path: '/sent' + path,
-        allow_shared_folder: true,
-        autorename: true,
-        allow_ownership_transfer: true
-      });
-      return fileMove;
-    })
+exports.archiveFile = function (path, subFolderName) {
+  const archivedFile = dbx.filesMove({
+    from_path: path,
+    to_path: '/sent/' + subFolderName + path,
+    allow_shared_folder: true,
+    autorename: true,
+    allow_ownership_transfer: true
+  })
     .then(function (fileMove) {
-      console.log('File archived successfully! 🗳️');
+      console.log('File ' + fileMove.name + ' archived successfully! 🗳️');
       return fileMove;
     })
     .catch(function (error) {
-      console.log('Error moving the file on Dropbox 💥');
-      console.log(error);
+      console.log('Error archiving the file 💥');
+      return Promise.reject(error);
     });
 
-  return renamedFile;
+  return archivedFile;
 };

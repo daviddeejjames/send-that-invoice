@@ -6,12 +6,12 @@ Uses the [Dropbox JS SDK](https://github.com/dropbox/dropbox-sdk-js) and
 [Nodemailer](https://github.com/nodemailer/nodemailer)
 
 ## What's left
-- [ ] Logic for determing the reciever of the PDF
-- [ ] Improve file find method using Dropbox API
 - [ ] Cron Job
+- [x] Logic for determing the reciever of the PDF
+- [x] Improve file find method using Dropbox API
 - [x] Archiving file / renaming after email is sent
 
-## Develop 🔧
+## How It Works 🔧
 // TODO
 
 ## Build & Deploy :alien:

@@ -56,6 +56,7 @@ typings/
 
 # dotenv environment variables file
 *.env
+!variables.sample.env
 
 # Hide Recipient Data
 *.json
