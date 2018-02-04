@@ -5,7 +5,6 @@ const recipients = require('./helpers/recipients');
 
 const CronJob = require('cron').CronJob;
 
-
 // Create our Express app
 const app = express();
 
@@ -15,7 +14,7 @@ app.get('/', (req, res) => {
 
 // Start the Cron
 const job = new CronJob({
-  cronTime: '* 0 * * * *', // Once every hour
+  cronTime: '0 0 * * * *', // Once every hour
   onTick: function(){
     console.log('🏄  Surfing the net for the invoice');
     sendInvoice();

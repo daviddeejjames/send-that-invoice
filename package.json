@@ -17,9 +17,6 @@
     "email",
     "dropbox"
   ],
-  "now": {
-    "dotenv": "variable.env.now"
-  },
   "author": "David James",
   "license": "MIT",
   "bugs": {
