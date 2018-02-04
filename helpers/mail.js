@@ -20,7 +20,7 @@ exports.send = async (options) => {
   const attachments = options.attachments;
 
   const mailOptions = {
-    from: 'David James <noreply@dfjames.com>',
+    from: process.env.MAIL_NAME + ' <' + process.env.MAIL_USER + '>',
     subject: options.subject,
     to: options.email,
     text,
