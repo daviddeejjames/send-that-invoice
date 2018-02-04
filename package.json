@@ -17,6 +17,9 @@
     "email",
     "dropbox"
   ],
+  "now": {
+    "dotenv": "variable.env.now"
+  },
   "author": "David James",
   "license": "MIT",
   "bugs": {
@@ -24,6 +27,7 @@
   },
   "homepage": "https://github.com/daviddeejjames/send-that-invoice#readme",
   "dependencies": {
+    "cron": "^1.3.0",
     "dotenv": "^4.0.0",
     "dropbox": "^2.5.12",
     "es6-promisify": "^5.0.0",
