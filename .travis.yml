@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- 9.5.0
+addons:
+  ssh_known_hosts:
+  - 159.65.1.141
+branches:
+  only:
+  - master
+env:
+  global:
+  - REMOTE_APP_DIR=/opt/send-that-invoice
+  - REMOTE_USER=deploy
+  - REMOTE_HOST=159.65.1.141
+  - PORT=8080
+before_install:
+- npm install -g npm@^2 && openssl aes-256-cbc -K $encrypted_a47b2e626c37_key -iv $encrypted_a47b2e626c37_iv
+  -in deploy.enc -out deploy -d
+install:
+- npm install --only=dev
+before_script:
+- chmod 600 deploy && mv deploy ~/.ssh/id_rsa
+script:
+- npm run build
+after_success:
+- "./scripts/deploy.sh"
