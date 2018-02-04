@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 // Start the Cron
 const job = new CronJob({
-  cronTime: '0 0 * * * *', // Once every hour
+  cronTime: '00 00 * * * *', // Once every hour
   onTick: function(){
     console.log('🏄  Surfing the net for the invoice');
     sendInvoice();
