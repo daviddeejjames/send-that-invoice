@@ -23,6 +23,7 @@ exports.send = async (options) => {
     from: process.env.MAIL_NAME + ' <' + process.env.MAIL_USER + '>',
     subject: options.subject,
     to: options.email,
+    replyTo: process.env.MAIL_REPLYTO,
     text,
     attachments
   };
