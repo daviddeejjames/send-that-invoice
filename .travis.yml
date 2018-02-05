@@ -1,6 +1,7 @@
 language: node_js
 node_js:
 - 9.5.0
+sudo: required
 addons:
   ssh_known_hosts:
   - 159.65.1.141
@@ -21,4 +22,4 @@ install:
 before_script:
 - chmod 600 deploy && mv deploy ~/.ssh/id_rsa
 script:
-- "sudo ./scripts/deploy.sh"
+- "./scripts/deploy.sh"
