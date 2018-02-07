@@ -8,7 +8,7 @@ const CronJob = require('cron').CronJob;
 require('dotenv').config({ path: 'variables.env' });
 console.log('===== Send That Invoice - started! =====');
 mail.send({
-  email: 'hello@dfjames.com',
+  email: 'davidj28827@gmail.com',
   subject: 'Server Started!',
   text: 'Hey Dave,\n\nYour Server just started!\n\nCheers :D'
 });
