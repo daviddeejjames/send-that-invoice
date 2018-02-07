@@ -8,15 +8,16 @@ const recipients = require('./helpers/recipients');
 
 const CronJob = require('cron').CronJob;
 
-console.log('===== Send That Invoice - started! =====');
 
 // Quick easy email notification to let me know the server started after deployment
 const mailOutput = mail.send({
   email: 'davidj28827@gmail.com',
-  subject: 'Server Started!',
+  subject: 'Send That Invoice - Started!',
   text: 'Hey Dave,\n\nYour Server just started!\n\nCheers',
   attachments: ''
 });
+
+console.log('===== Send That Invoice - started! =====');
 
 // Start the Cron
 const job = new CronJob({

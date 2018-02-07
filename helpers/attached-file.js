@@ -1,8 +1,6 @@
 const Dropbox = require('dropbox');
 const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 
-console.log('===== Dropbox is life =====');
-
 /**
  * Searches for a file based on the file prefix and returns
  * the file path if found.
