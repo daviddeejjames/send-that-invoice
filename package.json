@@ -4,7 +4,7 @@
   "description": "A small NodeJS app that automatically emails a file stored in a Dropbox folder",
   "main": "app.js",
   "scripts": {
-    "start": "node ./start.js",
+    "start": "node ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,7 +28,6 @@
     "dotenv": "^4.0.0",
     "dropbox": "^2.5.12",
     "es6-promisify": "^5.0.0",
-    "express": "^4.16.2",
     "nodemailer": "^4.4.1"
   },
   "devDependencies": {

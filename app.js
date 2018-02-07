@@ -1,15 +1,16 @@
-const express = require('express');
 const attachedFile = require('./helpers/attached-file');
 const mail = require('./helpers/mail');
 const recipients = require('./helpers/recipients');
 
 const CronJob = require('cron').CronJob;
 
-// Create our Express app
-const app = express();
-
-app.get('/', (req, res) => {
-  res.send('Tap for mana!');
+// Import environmental variables from our variables.env file
+require('dotenv').config({ path: 'variables.env' });
+console.log('===== Send That Invoice - started! =====');
+mail.send({
+  email: 'hello@dfjames.com',
+  subject: 'Server Started!',
+  text: 'Hey Dave,\n\nYour Server just started!\n\nCheers :D'
 });
 
 // Start the Cron
@@ -66,7 +67,3 @@ function sendInvoice() {
       });
   });
 }
-
-
-// Export it so we can start the site in start.js
-module.exports = app;
