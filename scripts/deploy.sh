@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-set -x
+set -euxo pipefail
 
-tar -czf package.tgz build && \
-scp package.tgz $REMOTE_USER@$REMOTE_HOST:$REMOTE_APP_DIR && \
+tar -cvzf package.tgz --exclude=.git --exclude=package.tgz --exclude=variables.env --exclude=data .
+scp package.tgz $REMOTE_USER@$REMOTE_HOST:$REMOTE_APP_DIR
 ssh $REMOTE_USER@$REMOTE_HOST 'bash -s' < ./scripts/untar.sh
 echo 'Deploy script complete 🌽'

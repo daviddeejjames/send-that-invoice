@@ -11,15 +11,15 @@ branches:
 env:
   global:
   - REMOTE_APP_DIR=/opt/send-that-invoice
-  - REMOTE_USER=deploy
+  - REMOTE_USER=root
   - REMOTE_HOST=159.65.1.141
-  - PORT=8080
 before_install:
-- openssl aes-256-cbc -K $encrypted_a47b2e626c37_key -iv $encrypted_a47b2e626c37_iv
-  -in deploy.enc -out deploy -d
+- openssl aes-256-cbc -K $encrypted_3024f06f859b_key -iv $encrypted_3024f06f859b_iv
+  -in deploy.enc -out ~/.ssh/id_rsa -d
 install:
-- npm install --only=dev
+- true
 before_script:
-- chmod 600 deploy && mv deploy ~/.ssh/id_rsa
+- chmod 600 ~/.ssh/id_rsa
 script:
+- chmod +x "./scripts/deploy.sh"
 - "./scripts/deploy.sh"

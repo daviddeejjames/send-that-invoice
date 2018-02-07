@@ -1,12 +1,9 @@
 #!/usr/bin/env sh
-set -x
-
-export NODE_ENV=production
-export NVM_BIN=$HOME/.nvm/versions/node/v9.5.0/bin
+set -euxo pipefail
 
 echo 'Untar script started ⭐'
-cd /opt/send-that-invoice && \
-tar zxvf package.tgz -C . && \
-mv build/package.json . && \
-npm install && \
+cd /opt/send-that-invoice
+tar -zxvf package.tgz
+rm -f package.tgz
+npm install
 npm run start
