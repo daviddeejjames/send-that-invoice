@@ -1,23 +1,26 @@
+// Import environmental variables from our variables.env file
 require('dotenv').config({ path: 'variables.env' });
 
+// Include helper files
 const attachedFile = require('./helpers/attached-file');
 const mail = require('./helpers/mail');
 const recipients = require('./helpers/recipients');
 
 const CronJob = require('cron').CronJob;
 
-// Import environmental variables from our variables.env file
-console.log(process.env.MAIL_HOST);
 console.log('===== Send That Invoice - started! =====');
+
+// Quick easy email notification to let me know the server started after deployment
 const mailOutput = mail.send({
-  email: 'davidj28827@gmail.com',
+  email: 'dave@dfjames.com',
   subject: 'Server Started!',
-  text: 'Hey Dave,\n\nYour Server just started!\n\nCheers :D'
+  text: 'Hey Dave,\n\nYour Server just started!\n\nCheers',
+  attachments: ''
 });
 
 // Start the Cron
 const job = new CronJob({
-  cronTime: '00 * * * * *', // Once every hour
+  cronTime: '00 00 * * * *', // Once every hour
   onTick: function(){
     console.log('🏄  Surfing the net for the invoice');
     sendInvoice();
