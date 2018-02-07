@@ -1,3 +1,5 @@
+require('dotenv').config({ path: 'variables.env' });
+
 const attachedFile = require('./helpers/attached-file');
 const mail = require('./helpers/mail');
 const recipients = require('./helpers/recipients');
@@ -5,9 +7,9 @@ const recipients = require('./helpers/recipients');
 const CronJob = require('cron').CronJob;
 
 // Import environmental variables from our variables.env file
-require('dotenv').config({ path: 'variables.env' });
+console.log(process.env.MAIL_HOST);
 console.log('===== Send That Invoice - started! =====');
-mail.send({
+const mailOutput = mail.send({
   email: 'davidj28827@gmail.com',
   subject: 'Server Started!',
   text: 'Hey Dave,\n\nYour Server just started!\n\nCheers :D'
@@ -15,7 +17,7 @@ mail.send({
 
 // Start the Cron
 const job = new CronJob({
-  cronTime: '00 00 * * * *', // Once every hour
+  cronTime: '00 * * * * *', // Once every hour
   onTick: function(){
     console.log('🏄  Surfing the net for the invoice');
     sendInvoice();
