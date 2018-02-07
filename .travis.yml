@@ -1,7 +1,6 @@
 language: node_js
 node_js:
 - 9.5.0
-sudo: required
 addons:
   ssh_known_hosts:
   - 159.65.1.141
@@ -13,6 +12,8 @@ env:
   - REMOTE_APP_DIR=/opt/send-that-invoice
   - REMOTE_USER=root
   - REMOTE_HOST=159.65.1.141
+before_install:
+- openssl aes-256-cbc -K $encrypted_f4f78a97320d_key -iv $encrypted_f4f78a97320d_iv -in deploy.enc -out deploy -d
 install:
 - true
 before_script:
@@ -21,6 +22,3 @@ before_script:
 script:
 - chmod +x "./scripts/deploy.sh"
 - "./scripts/deploy.sh"
-before_install:
-- openssl aes-256-cbc -K $encrypted_3024f06f859b_key -iv $encrypted_3024f06f859b_iv
-  -in deploy.enc -out deploy -d
