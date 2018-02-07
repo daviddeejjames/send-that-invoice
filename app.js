@@ -12,7 +12,7 @@ console.log('===== Send That Invoice - started! =====');
 
 // Quick easy email notification to let me know the server started after deployment
 const mailOutput = mail.send({
-  email: 'dave@dfjames.com',
+  email: 'davidj28827@gmail.com',
   subject: 'Server Started!',
   text: 'Hey Dave,\n\nYour Server just started!\n\nCheers',
   attachments: ''
