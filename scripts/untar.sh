@@ -8,5 +8,6 @@ forever stop /opt/send-that-invoice/app.js || true
 tar -zxvf package.tgz
 rm -f package.tgz
 npm install
+chmod +x app.js
 systemctl restart send-that-invoice
 
