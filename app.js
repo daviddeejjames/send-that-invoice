@@ -3,6 +3,23 @@
 // Import environmental variables from our variables.env file
 require('dotenv').config({ path: 'variables.env' });
 
+const winston = require('winston');
+
+require('winston-papertrail').Papertrail;
+
+const winstonPapertrail = new winston.transports.Papertrail({
+  host: 'logs.papertrailapp.com',
+  port: 45582
+});
+
+winstonPapertrail.on('error', function (err) {
+  console.log('Winston failed to connect to papertrail: ' + err);
+});
+
+const logger = new winston.Logger({
+  transports: [winstonPapertrail]
+});
+
 // Include helper files
 const attachedFile = require('./helpers/attached-file');
 const mail = require('./helpers/mail');
@@ -19,13 +36,13 @@ const mailOutput = mail.send({
   attachments: ''
 });
 
-console.log('===== Send That Invoice - started! =====');
+logger.info('===== Send That Invoice - started! =====');
 
 // Start the Cron
 const job = new CronJob({
   cronTime: '00 00 * * * *', // Once every hour
   onTick: function(){
-    console.log('🏄  Surfing the net for the invoice');
+    logger.info('🏄  Surfing the net for the invoice');
     sendInvoice();
   },
   start: false,
@@ -64,13 +81,13 @@ function sendInvoice() {
         return mailPromise;
       })
       .then(function () {
-        console.log('The email was sent! 📤');
+        logger.info('The email was sent! 📤');
         const archiveFile = attachedFile.archiveFile(foundFilePath, recipient.name);
         return archiveFile;
       })
       .catch(function (error) {
-        console.log(error);
-        console.log('Email failed to send 🙃');
+        logger.info(error);
+        logger.info('Email failed to send 🙃');
         return Promise.reject(error);
       });
   });
