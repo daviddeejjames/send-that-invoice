@@ -15,6 +15,8 @@ This invoice is usually handwritten, scanned and uploaded to Dropbox. In the pas
 
 This application rectifies this by checking if the file has been uploaded to Dropbox and proceeds to generate the email and send it to the specific client as an email with an attachment, based on the uploaded file name prefix.
 
+The application checks for the file every hour using a cron. These settings could be changed and the cron could be ditched in favor of a webhook connected to the particular Dropbox folder.
+
 ## Build & Usage :alien:
 1. Clone repo
 1. Set environment variables in ```variables.env```
