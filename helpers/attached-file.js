@@ -1,6 +1,6 @@
 const Dropbox = require('dropbox');
 const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
-
+const logger = require('./logger').logger;
 /**
  * Searches for a file based on the file prefix and returns
  * the file path if found.
@@ -28,7 +28,7 @@ exports.searchFilePath = function (filePrefix) {
 
     })
     .then(function (foundPath) {
-      console.log('Found the file @' + foundPath  + ' 🧙 ' );
+      logger.info('Found the file @' + foundPath  + ' 🧙 ' );
       return foundPath;
     })
     .catch(function (error) {
@@ -50,7 +50,7 @@ exports.getFile = function (path) {
       return response;
     })
     .catch(function (error) {
-      console.log('Error downloading the file ❎');
+      logger.info('Error downloading the file ❎');
       return Promise.reject(error);
     });
 
@@ -71,11 +71,11 @@ exports.archiveFile = function (path, subFolderName) {
     allow_ownership_transfer: true
   })
     .then(function (fileMove) {
-      console.log('File ' + fileMove.name + ' archived successfully! 🗳️');
+      logger.info('File ' + fileMove.name + ' archived successfully! 🗳️');
       return fileMove;
     })
     .catch(function (error) {
-      console.log('Error archiving the file 💥');
+      logger.info('Error archiving the file 💥');
       return Promise.reject(error);
     });
 
