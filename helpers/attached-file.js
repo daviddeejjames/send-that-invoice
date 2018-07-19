@@ -15,7 +15,7 @@ exports.searchFilePath = function (filePrefix) {
 
       const entries = response.entries;
       entries.forEach(element => {
-        if (element.name.startsWith(filePrefix)) {
+        if (element.name.toLowerCase().startsWith(filePrefix.toLowerCase())) {
           filePath = element.path_display; // Note: only works with one file of that name
         }
       });
