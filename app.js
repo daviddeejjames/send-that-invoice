@@ -9,7 +9,10 @@ const mail = require('./helpers/mail');
 const recipients = require('./helpers/recipients');
 const logger = require('./helpers/logger').logger;
 
+const AWS = require('aws-sdk');
 const CronJob = require('cron').CronJob;
+
+AWS.config.update({ region: 'ap-southeast-2' });
 
 // Quick easy email notification to let me know the server started after deployment
 const mailOutput = mail.send({
@@ -67,6 +70,24 @@ function sendInvoice() {
         logger.info('The email was sent! 📤');
         const archiveFile = attachedFile.archiveFile(foundFilePath, recipient.name);
         return archiveFile;
+      })
+      .then(function() {
+        if (!process.env.SNS_TOPIC_ARN) {
+          return;
+        }
+
+        logger.info('Sending SMS to Mum via SNS! 📱');
+
+        const sns_params = {
+          Message: `Invoice sent to ${recipient.name}! 📤 from your friendly robot 🤖`,
+          TopicArn: process.env.SNS_TOPIC_ARN
+        };
+        const publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(sns_params).promise();
+        return publishTextPromise;
+      })
+      .then(function() {
+        logger.info('SMS sent successfully! 🌟');
+        return;
       })
       .catch(function (error) {
         logger.info(error);
