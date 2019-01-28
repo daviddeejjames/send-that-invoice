@@ -1,7 +1,7 @@
 # send-that-invoice 📤
 [![Build Status](https://travis-ci.org/daviddeejjames/send-that-invoice.svg?branch=master)](https://travis-ci.org/daviddeejjames/send-that-invoice)
 
-Small NodeJS app that automatically emails a file from a given Dropbox folder.
+Small Node.js app that automatically emails a file from a given Dropbox folder. Also sends a text message via AWS SNS to verify an email has been sent.
 
 ## Uses
 - [Dropbox JS SDK](https://github.com/dropbox/dropbox-sdk-js)
