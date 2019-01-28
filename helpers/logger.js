@@ -7,8 +7,8 @@ const winstonPapertrail = new winston.transports.Papertrail({
   port: 45582
 });
 
-winstonPapertrail.on('error', function (err) {
-  console.log('Winston failed to connect to papertrail: ' + err);
+winstonPapertrail.on('error', error => {
+  console.log('Winston failed to connect to papertrail: ' + error);
 });
 
 exports.logger = new winston.Logger({

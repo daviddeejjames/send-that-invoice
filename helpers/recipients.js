@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-exports.getRecipientFiles= function (dir) {
+exports.getRecipientFiles= dir => {
   let fileList = [];
 
   const files = fs.readdirSync(dir);
-  for (var i in files) {
+  for (const i in files) {
     if (!files.hasOwnProperty(i)) continue;
-    var name = dir + '/' + files[i];
+    const name = dir + '/' + files[i];
     if (!fs.statSync(name).isDirectory()) {
       fileList.push(name);
     }

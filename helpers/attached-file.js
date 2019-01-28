@@ -8,9 +8,9 @@ const logger = require('./logger').logger;
  * @param {Array} entries - File entries found from Dropbox API
  * @param {String} filePrefix - the prefix of the file we are after
  */
-exports.searchFilePath = function (filePrefix) {
+exports.searchFilePath = filePrefix => {
   const filePath = dbx.filesListFolder({ path: '' })
-    .then(function (response) {
+    .then(response => {
       let filePath;
 
       const entries = response.entries;
@@ -27,11 +27,11 @@ exports.searchFilePath = function (filePrefix) {
       }
 
     })
-    .then(function (foundPath) {
+    .then(foundPath => {
       logger.info('Found the file @' + foundPath  + ' 🧙 ' );
       return foundPath;
     })
-    .catch(function (error) {
+    .catch(error => {
       return Promise.reject(error);
     });
 
@@ -43,13 +43,13 @@ exports.searchFilePath = function (filePrefix) {
  *
  * @param {String} path - the path of the file we are after
  */
-exports.getFile = function (path) {
+exports.getFile = path => {
 
   const file = dbx.filesDownload({ path: path })
-    .then(function (response) {
+    .then(response => {
       return response;
     })
-    .catch(function (error) {
+    .catch(error => {
       logger.info('Error downloading the file ❎');
       return Promise.reject(error);
     });
@@ -62,7 +62,7 @@ exports.getFile = function (path) {
  *
  * @param {String} path - the path of the file we are after
  */
-exports.archiveFile = function (path, subFolderName) {
+exports.archiveFile = (path, subFolderName) => {
   const archivedFile = dbx.filesMove({
     from_path: path,
     to_path: '/sent/' + subFolderName + path,
@@ -70,11 +70,11 @@ exports.archiveFile = function (path, subFolderName) {
     autorename: true,
     allow_ownership_transfer: true
   })
-    .then(function (fileMove) {
+    .then(fileMove => {
       logger.info('File ' + fileMove.name + ' archived successfully! 🗳️');
       return fileMove;
     })
-    .catch(function (error) {
+    .catch(error => {
       logger.info('Error archiving the file 💥');
       return Promise.reject(error);
     });
