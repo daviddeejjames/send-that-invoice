@@ -65,7 +65,7 @@ exports.getFile = path => {
 exports.archiveFile = (path, subFolderName) => {
   const archivedFile = dbx.filesMove({
     from_path: path,
-    to_path: '/sent/' + subFolderName + path,
+    to_path: '/archived/' + subFolderName + path,
     allow_shared_folder: true,
     autorename: true,
     allow_ownership_transfer: true
