@@ -15,7 +15,7 @@ const transport = nodemailer.createTransport({
  *
  * @param {Object} options - Mail options for sending
  */
-exports.send = async (options) => {
+async function sendEmail(options) {
   const text = options.text;
   const attachments = options.attachments;
 
@@ -30,4 +30,6 @@ exports.send = async (options) => {
 
   const sendMail = promisify(transport.sendMail, transport);
   return sendMail(mailOptions);
-};
+}
+
+export default sendEmail;

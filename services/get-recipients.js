@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-exports.getRecipientFiles= dir => {
+function getRecipientFiles(dir) {
   let fileList = [];
 
   const files = fs.readdirSync(dir);
@@ -12,4 +12,6 @@ exports.getRecipientFiles= dir => {
     }
   }
   return fileList;
-};
+}
+
+export default getRecipientFiles;

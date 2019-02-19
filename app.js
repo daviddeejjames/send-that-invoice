@@ -5,24 +5,12 @@ require('dotenv').config({ path: 'variables.env' });
 
 // Include helper files
 const attachedFile = require('./helpers/attached-file');
-const mail = require('./helpers/mail');
-const recipients = require('./helpers/recipients');
+
+const recipients = require('./services/get-recipients');
 const logger = require('./helpers/logger').logger;
 
-const AWS = require('aws-sdk');
+
 const CronJob = require('cron').CronJob;
-
-AWS.config.update({ region: 'ap-southeast-2' });
-
-// Quick easy email notification to let me know the server started after deployment
-mail.send({
-  email: 'davidj28827@gmail.com',
-  subject: 'Send That Invoice - Started!',
-  text: 'Hey Dave,\n\nYour Server just started!\n\nCheers',
-  attachments: ''
-});
-
-logger.info('===== Send That Invoice - started! =====');
 
 // Start the Cron
 const job = new CronJob({
@@ -44,51 +32,20 @@ const sendInvoice = () => {
     }
     const recipient = require(personFile);
     const filePrefix = recipient['file-prefix'];
-    let foundFilePath;
 
     // Get the file, email it then archive it!
-    const sentInvoice = attachedFile.searchFilePath(filePrefix)
+    const sentInvoice =
       .then(filePath => {
-        foundFilePath = filePath;
-        const file = attachedFile.getFile(filePath);
-        return file;
+        // Find the file
       })
       .then(file => {
-        const mailPromise = mail.send({
-          email: recipient.email,
-          subject: recipient.subject,
-          text: recipient.text,
-          attachments: {   // binary buffer as an attachment
-            filename: file.name,
-            content: new Buffer(file.fileBinary, 'binary'),
-            encoding: 'binary'
-          }
-        });
-        return mailPromise;
+        // Send File
       })
       .then(() => {
-        logger.info('The email was sent! 📤');
-        const archiveFile = attachedFile.archiveFile(foundFilePath, recipient.name);
-        return archiveFile;
+        // Archive file
       })
       .then(() => {
-        // Shortcircut if SNS is not set
-        if (!process.env.SNS_TOPIC_ARN) {
-          return;
-        }
-
-        logger.info('Sending SMS to Mum via SNS! 📱');
-
-        const sns_params = {
-          Message: `Invoice sent to ${recipient.name}! 📤 from your friendly robot 🤖`,
-          TopicArn: process.env.SNS_TOPIC_ARN
-        };
-        const publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(sns_params).promise();
-        return publishTextPromise;
-      })
-      .then(() => {
-        logger.info('SMS sent successfully! 🌟');
-        return;
+        // Send SMS
       })
       .catch(error => {
         logger.info(error);
