@@ -34,6 +34,6 @@
     "winston-papertrail": "^1.0.5"
   },
   "devDependencies": {
-    "eslint": "^4.13.1"
+    "eslint": "^5.14.1"
   }
 }
