@@ -1,19 +1,19 @@
-const logger = require('./helpers/logger').logger;
-const { sendEmail } = require('./helpers/mail');
+const sendEmail = require('../helpers/mail');
+const logger = require('../helpers/logger');
 
-async function sendInvoiceEmail(file, recipient) {
+const sendInvoiceEmail = async (file, recipient) => {
   await sendEmail({
     email: recipient.email,
     subject: recipient.subject,
     text: recipient.text,
     attachments: {   // binary buffer as an attachment
       filename: file.name,
-      content: new Buffer(file.fileBinary, 'binary'),
+      content: new Buffer.from(file.fileBinary, 'binary'),
       encoding: 'binary'
     }
   });
 
   logger.info('The email was sent! 📤');
-}
+};
 
-export default sendInvoiceEmail;
+module.exports = sendInvoiceEmail;

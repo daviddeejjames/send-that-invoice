@@ -1,16 +1,16 @@
-const mail = require('./helpers/mail');
-const logger = require('./helpers/logger').logger;
+const sendEmail = require('../helpers/mail');
+const logger = require('../helpers/logger');
 
-async function serviceStartedNotification() {
+const serviceStartedNotification = () => {
   // Quick easy email notification to let me know the server started
-  mail.send({
+  logger.info('===== Send That Invoice - started! =====');
+  return sendEmail({
     email: 'davidj28827@gmail.com',
     subject: 'Send That Invoice - Started!',
     text: 'Hey Dave,\n\nYour Server just started!\n\nCheers',
     attachments: ''
   });
 
-  logger.info('===== Send That Invoice - started! =====');
-}
+};
 
-export default serviceStartedNotification;
+module.exports = serviceStartedNotification;

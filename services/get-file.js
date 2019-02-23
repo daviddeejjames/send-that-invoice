@@ -1,14 +1,14 @@
 const Dropbox = require('dropbox');
 const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
-const logger = require('./logger').logger;
+const logger = require('../helpers/logger');
 
 /**
  * Gets the desired file from Dropbox
  *
  * @param {String} path - the path of the file we are after
  */
-async function getFile(filePath) {
-  const file = dbx.filesDownload({ path: filePath })
+const getFile = async (filePath) => {
+  const file = await dbx.filesDownload({ path: filePath })
     .then(response => {
       return response;
     })
@@ -18,6 +18,6 @@ async function getFile(filePath) {
     });
 
   return file;
-}
+};
 
-export default getFile;
+module.exports = getFile;

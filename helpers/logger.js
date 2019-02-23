@@ -8,9 +8,11 @@ const winstonPapertrail = new winston.transports.Papertrail({
 });
 
 winstonPapertrail.on('error', error => {
-  console.log('Winston failed to connect to papertrail: ' + error);
+  logger.info('Winston failed to connect to papertrail: ' + error);
 });
 
-exports.logger = new winston.Logger({
+const logger = new winston.Logger({
   transports: [winstonPapertrail]
 });
+
+module.exports = logger;
