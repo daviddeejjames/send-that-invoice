@@ -20,6 +20,6 @@ before_script:
 - chmod 600 deploy
 - mv deploy ~/.ssh/id_rsa
 deploy:
-- 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; fi'
+- 'if [ "$TRAVIS_PULL_REQUEST" != "false" ] then travis_terminate 0; fi'
 - chmod +x "./scripts/deploy.sh"
 - "./scripts/deploy.sh"
