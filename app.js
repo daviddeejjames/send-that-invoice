@@ -24,17 +24,11 @@ const sendInvoice = () => {
 
       const recipient = require(personFile);
       const filePrefix = recipient['file-prefix'];
-
       const filePath = await getFilePath(filePrefix);
-
       const file = await getFile(filePath);
-
       await sendInvoiceEmail(file, recipient);
-
       await archiveFile(filePath, recipient);
-
       await sendSms(recipient);
-
       logger.info(`All done for ${recipient.name}! 👋`);
 
     } catch(error) {
@@ -46,7 +40,7 @@ const sendInvoice = () => {
 
 // Start the Cron
 const job = new CronJob({
-  cronTime: '* * * * * *', // Once every hour
+  cronTime: '00 00 * * * *', // Once every hour
   onTick: () => {
     logger.info('🏄  Surfing the net for the invoice');
     sendInvoice();
