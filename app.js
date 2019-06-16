@@ -16,7 +16,7 @@ const sendSms = require('./services/sms');
 
 const sendInvoice = () => {
   const recipientList = getRecipientFiles('./data');
-  recipientList.forEach(async (personFile) => {
+  recipientList.forEach(async personFile => {
     try {
       if (personFile.includes('sample')) {
         return;
@@ -30,8 +30,7 @@ const sendInvoice = () => {
       await archiveFile(filePath, recipient);
       await sendSms(recipient);
       logger.info(`All done for ${recipient.name}! 👋`);
-
-    } catch(error) {
+    } catch (error) {
       logger.info(error);
       logger.info('Email failed to send 🙃');
     }
@@ -50,7 +49,12 @@ const job = new CronJob({
 });
 
 // Notify that the app has started
-serviceStartedNotification();
+try {
+  serviceStartedNotification();
+} catch (error) {
+  logger.info(error);
+  logger.info('Failed to initialize email sending, DAMN SMTP! 🐟');
+}
 
 // Kick off cron job
 job.start();
