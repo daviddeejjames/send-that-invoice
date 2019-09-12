@@ -59,9 +59,14 @@ typings/
 *.env.now
 !variables.sample.env
 
-# Hide Recipient Data
-*.json
-!person.sample.json
-
 # No deploy key
 deploy
+*.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+data
+.vscode
