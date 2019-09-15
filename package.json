@@ -16,6 +16,9 @@
     "typescript": "~3.6.2"
   },
   "dependencies": {
+    "@aws-cdk/aws-events": "^1.8.0",
+    "@aws-cdk/aws-events-targets": "^1.8.0",
+    "@aws-cdk/aws-lambda": "^1.8.0",
     "@aws-cdk/aws-s3": "^1.8.0",
     "@aws-cdk/core": "^1.8.0",
     "source-map-support": "^0.5.9"

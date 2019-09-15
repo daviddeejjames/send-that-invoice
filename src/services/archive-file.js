@@ -1,5 +1,5 @@
 const Dropbox = require('dropbox');
-const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
+const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
 const logger = require('../helpers/logger');
 
 /**

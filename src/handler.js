@@ -9,7 +9,7 @@ const sendInvoiceEmail = require('./services/send-email');
 const archiveFile = require('./services/archive-file');
 const sendSms = require('./services/sms');
 
-exports.handler = () => {
+exports.main = () => {
   const recipientList = getRecipientFiles('./data');
   recipientList.forEach(async personFile => {
     try {
