@@ -1,5 +1,4 @@
 const sendEmail = require('../helpers/mail');
-const logger = require('../helpers/logger');
 
 const sendInvoiceEmail = async (file, recipient) => {
   await sendEmail({
@@ -13,7 +12,7 @@ const sendInvoiceEmail = async (file, recipient) => {
     }
   });
 
-  logger.info('The email was sent! 📤');
+  console.info('The email was sent! 📤');
 };
 
 module.exports = sendInvoiceEmail;

@@ -70,3 +70,5 @@ node_modules
 cdk.out
 data
 .vscode
+
+!src/**/*.js

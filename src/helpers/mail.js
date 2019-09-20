@@ -16,8 +16,7 @@ const transport = nodemailer.createTransport({
  * @param {Object} options - Mail options for sending
  */
 const sendEmail = async (options) => {
-  const text = options.text;
-  const attachments = options.attachments;
+  const { text, attachments } = options;
 
   const mailOptions = {
     from: process.env.MAIL_NAME + ' <' + process.env.MAIL_USER + '>',

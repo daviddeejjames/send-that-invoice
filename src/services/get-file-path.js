@@ -1,6 +1,5 @@
 const Dropbox = require('dropbox');
 const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
-const logger = require('../helpers/logger');
 
 /**
  * Searches for a file based on the file prefix and returns
@@ -29,7 +28,7 @@ const getFilePath = async filePrefix => {
       }
     })
     .then(foundPath => {
-      logger.info('Found the file @' + foundPath + ' 🧙 ');
+      console.info('Found the file @' + foundPath + ' 🧙 ');
       return foundPath;
     })
     .catch(error => {

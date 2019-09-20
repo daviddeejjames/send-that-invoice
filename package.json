@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "cd src && jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "local": "cd src && npm run start"
   },
   "devDependencies": {
     "aws-cdk": "^1.8.0",
