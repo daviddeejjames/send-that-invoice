@@ -9,6 +9,7 @@
     "watch": "tsc -w",
     "test": "cd src && jest",
     "cdk": "cdk",
+    "pre-build": "cd src && npm install",
     "local": "cd src && npm run start"
   },
   "devDependencies": {
