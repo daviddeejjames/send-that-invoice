@@ -24,10 +24,9 @@ install:
 script:
   - cdk synth
 deploy:
-  matrix:
-    - provider: script
-      script:
-        - cdk deploy --require-approval never
-      skip_cleanup: true
-      on:
-        branch: master
+  - provider: script
+    script:
+      - cdk deploy --require-approval never
+    skip_cleanup: true
+    on:
+      branch: master
