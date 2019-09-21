@@ -3,6 +3,7 @@ node_js:
   - '10'
 env:
   global:
+    - AWS_DEFAULT_REGION=ap-southeast-2
     - DATA_BUCKET=send-that-invoice-data
     - MAIL_NAME='Josephine James'
     - MAIL_USER=davidj28827@gmail.com
