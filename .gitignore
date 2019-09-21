@@ -71,4 +71,6 @@ cdk.out
 data
 .vscode
 
+# Other important things to not ignore
 !src/**/*.js
+!data/person.sample.json
