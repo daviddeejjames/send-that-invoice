@@ -1,0 +1,36 @@
+{
+  "name": "send-that-invoice",
+  "version": "1.0.0",
+  "description": "A small NodeJS app that automatically emails a file stored in a Dropbox folder",
+  "main": "app.js",
+  "scripts": {
+    "start": "export $(cat ../variables.env | xargs) && node ./scripts/run-lambda-locally.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daviddeejjames/send-that-invoice.git"
+  },
+  "keywords": [
+    "nodejs",
+    "automation",
+    "email",
+    "dropbox"
+  ],
+  "author": "David James",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daviddeejjames/send-that-invoice/issues"
+  },
+  "homepage": "https://github.com/daviddeejjames/send-that-invoice#readme",
+  "dependencies": {
+    "@sentry/node": "^5.6.2",
+    "aws-sdk": "^2.532.0",
+    "dropbox": "^2.5.12",
+    "es6-promisify": "^5.0.0",
+    "nodemailer": "^4.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1"
+  }
+}

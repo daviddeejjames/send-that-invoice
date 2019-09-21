@@ -1,6 +1,5 @@
 const Dropbox = require('dropbox');
-const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
-const logger = require('../helpers/logger');
+const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
 
 /**
  * Searches for a file based on the file prefix and returns
@@ -9,8 +8,9 @@ const logger = require('../helpers/logger');
  * @param {Array} entries - File entries found from Dropbox API
  * @param {String} filePrefix - the prefix of the file we are after
  */
-const getFilePath = async (filePrefix) => {
-  return await dbx.filesListFolder({ path: '' })
+const getFilePath = async filePrefix => {
+  return await dbx
+    .filesListFolder({ path: '' })
     .then(response => {
       let filePath;
 
@@ -26,10 +26,9 @@ const getFilePath = async (filePrefix) => {
       } else {
         throw new Error('No files were found! 😞');
       }
-
     })
     .then(foundPath => {
-      logger.info('Found the file @' + foundPath + ' 🧙 ');
+      console.log('Found the file @' + foundPath + ' 🧙 ');
       return foundPath;
     })
     .catch(error => {

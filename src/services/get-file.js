@@ -1,6 +1,5 @@
 const Dropbox = require('dropbox');
-const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
-const logger = require('../helpers/logger');
+const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
 
 /**
  * Gets the desired file from Dropbox
@@ -13,7 +12,7 @@ const getFile = async (filePath) => {
       return response;
     })
     .catch(error => {
-      logger.info('Error downloading the file ❎');
+      console.log('Error downloading the file ❎');
       return Promise.reject(error);
     });
 

@@ -1,6 +1,5 @@
 const Dropbox = require('dropbox');
-const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
-const logger = require('../helpers/logger');
+const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
 
 /**
  * Moves the file to the sent folder.
@@ -18,11 +17,11 @@ const archiveFile = async (path, recipient) => {
     allow_ownership_transfer: true
   })
     .then(fileMove => {
-      logger.info('File ' + fileMove.name + ' archived successfully! 🗳️');
+      console.log('File ' + fileMove.name + ' archived successfully! 🗳️');
       return fileMove;
     })
     .catch(error => {
-      logger.info('Error archiving the file 💥');
+      console.log('Error archiving the file 💥');
       return Promise.reject(error);
     });
 };
