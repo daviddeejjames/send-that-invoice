@@ -12,7 +12,7 @@ const getFile = async (filePath) => {
       return response;
     })
     .catch(error => {
-      console.info('Error downloading the file ❎');
+      console.log('Error downloading the file ❎');
       return Promise.reject(error);
     });
 

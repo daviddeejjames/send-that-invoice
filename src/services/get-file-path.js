@@ -28,7 +28,7 @@ const getFilePath = async filePrefix => {
       }
     })
     .then(foundPath => {
-      console.info('Found the file @' + foundPath + ' 🧙 ');
+      console.log('Found the file @' + foundPath + ' 🧙 ');
       return foundPath;
     })
     .catch(error => {

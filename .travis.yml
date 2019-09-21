@@ -2,13 +2,14 @@ language: node_js
 node_js:
   - '10'
 env:
-  - secure: p3y8Qy0WftjANT+dq4bLGdKtCnIv8k7iVYY8DoUyMZf2IhejFy7TDi2BNKJulu5FgZ583KKpiptiqIJUal9t5WEokPvKfDCJBIWQTw1TCtamWI0EUplqnWCPfynwdKyVK4faCRJ7v0myznKxDlnPaNI03gPNBscLhOs8UhLfj8WV1cbo5vhsyqS722tA7VGA9Aj9KT3eh5nlreb3BqYscugj3X0Zfj2iEFfty5UEdsMXqCon3UHJY1/VmZacvi7d+XKVMJ7c5ALN1iOeobTDFRU0h1gBsBesXhEgtM8mUWRf8D1awj2iOxLTjBBmcS6S6Ygz3QqTv0tCQgvTI4zZ8Fh+AIAxydLHVmB1U9qbIQ05EbgyiXXqs0dt6WbAovROJqc+umoS/Vg8YySt7zoYR0EsY0REL5NsUUcvs8Bz5dnemi+p1MDb6jPjNxk0f3bbj7I7QPBOmEkWq6UrMZorHXWu7nUyY5nWWMQeeJl7ojBkPP43mwkGRG+2So4MFXWNxTJyE+//PgnWkhuSdCUJfM03B4w05gs9VSa9RTwM1cnPp0ji79gTPJBs3DSNXeje+1nLxpzTELDzh4PizUiBTvC9Rg1OafnDmv9jUXfnixU992mtnclgk8e4bWP82LXYT5GBVm7f1Hej+Ig47eWRpHe/hc0eWBIJ3dhGJ6BSsvs=
-  - DATA_BUCKET=send-that-invoice-data
-  - MAIL_NAME='Josephine James'
-  - MAIL_USER=davidj28827@gmail.com
-  - MAIL_REPLY_TO=davidj28827@gmail.com
-  - MAIL_HOST=smtp.gmail.com
-  - MAIL_PORT=587
+  global:
+    - secure: p3y8Qy0WftjANT+dq4bLGdKtCnIv8k7iVYY8DoUyMZf2IhejFy7TDi2BNKJulu5FgZ583KKpiptiqIJUal9t5WEokPvKfDCJBIWQTw1TCtamWI0EUplqnWCPfynwdKyVK4faCRJ7v0myznKxDlnPaNI03gPNBscLhOs8UhLfj8WV1cbo5vhsyqS722tA7VGA9Aj9KT3eh5nlreb3BqYscugj3X0Zfj2iEFfty5UEdsMXqCon3UHJY1/VmZacvi7d+XKVMJ7c5ALN1iOeobTDFRU0h1gBsBesXhEgtM8mUWRf8D1awj2iOxLTjBBmcS6S6Ygz3QqTv0tCQgvTI4zZ8Fh+AIAxydLHVmB1U9qbIQ05EbgyiXXqs0dt6WbAovROJqc+umoS/Vg8YySt7zoYR0EsY0REL5NsUUcvs8Bz5dnemi+p1MDb6jPjNxk0f3bbj7I7QPBOmEkWq6UrMZorHXWu7nUyY5nWWMQeeJl7ojBkPP43mwkGRG+2So4MFXWNxTJyE+//PgnWkhuSdCUJfM03B4w05gs9VSa9RTwM1cnPp0ji79gTPJBs3DSNXeje+1nLxpzTELDzh4PizUiBTvC9Rg1OafnDmv9jUXfnixU992mtnclgk8e4bWP82LXYT5GBVm7f1Hej+Ig47eWRpHe/hc0eWBIJ3dhGJ6BSsvs=
+    - DATA_BUCKET=send-that-invoice-data
+    - MAIL_NAME='Josephine James'
+    - MAIL_USER=davidj28827@gmail.com
+    - MAIL_REPLY_TO=davidj28827@gmail.com
+    - MAIL_HOST=smtp.gmail.com
+    - MAIL_PORT=587
 before_install:
   - npm install -g aws-cdk
 install:

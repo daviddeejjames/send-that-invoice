@@ -12,7 +12,7 @@ const sendInvoiceEmail = async (file, recipient) => {
     }
   });
 
-  console.info('The email was sent! 📤');
+  console.log('The email was sent! 📤');
 };
 
 module.exports = sendInvoiceEmail;

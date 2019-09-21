@@ -17,11 +17,11 @@ const archiveFile = async (path, recipient) => {
     allow_ownership_transfer: true
   })
     .then(fileMove => {
-      console.info('File ' + fileMove.name + ' archived successfully! 🗳️');
+      console.log('File ' + fileMove.name + ' archived successfully! 🗳️');
       return fileMove;
     })
     .catch(error => {
-      console.info('Error archiving the file 💥');
+      console.log('Error archiving the file 💥');
       return Promise.reject(error);
     });
 };

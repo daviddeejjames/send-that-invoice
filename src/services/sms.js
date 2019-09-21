@@ -11,7 +11,7 @@ const sendSms = async (recipient, snsTopicArn) => {
     return;
   }
 
-  console.info('Sending SMS to Mum via SNS! 📱');
+  console.log('Sending SMS to Mum via SNS! 📱');
 
   const sns_params = {
     Message: `Invoice sent to ${recipient.name}! 📤 from your friendly robot 🤖`,
@@ -21,7 +21,7 @@ const sendSms = async (recipient, snsTopicArn) => {
     await new AWS.SNS({ apiVersion: '2010-03-31' })
       .publish(sns_params)
       .promise();
-  console.info('SMS sent successfully! 🌟');
+  console.log('SMS sent successfully! 🌟');
   return publishTextPromise;
 };
 

@@ -16,9 +16,10 @@ const {
 } = process.env;
 
 module.exports.main = async () => {
+  console.log('Send That Invoice Lambda started...');
   try {
     const recipientList = await getRecipientFiles(dataBucket);
-    recipientList.forEach(async recipient => {
+    recipientList.map(async recipient => {
       const filePrefix = recipient['file-prefix'];
       const filePath = await getFilePath(filePrefix);
       const file = await getFile(filePath);
@@ -26,13 +27,14 @@ module.exports.main = async () => {
       await sendInvoiceEmail(file, recipient);
       await archiveFile(filePath, recipient);
       await sendSms(recipient, snsTopicArn);
-      console.info(`All done for ${recipient.name}! 👋`);
+      console.log(`All done for ${recipient.name}! 👋`);
     });
   } catch (error) {
-    if(sentryDsn && nodeEnv === 'production') {
+    if (sentryDsn && nodeEnv != 'development') {
       Sentry.init({ dsn: sentryDsn });
       Sentry.captureException(error);
     }
     console.error(error);
   }
+  console.log('Send That Invoice Lambda completed!');
 };
