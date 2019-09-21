@@ -19,16 +19,19 @@ module.exports.main = async () => {
   console.log('Send That Invoice Lambda started...');
   try {
     const recipientList = await getRecipientFiles(dataBucket);
-    recipientList.map(async recipient => {
-      const filePrefix = recipient['file-prefix'];
-      const filePath = await getFilePath(filePrefix);
-      const file = await getFile(filePath);
+    await Promise.all(
+      recipientList.map(async recipient => {
+        const filePrefix = recipient['file-prefix'];
+        const filePath = await getFilePath(filePrefix);
+        const file = await getFile(filePath);
 
-      await sendInvoiceEmail(file, recipient);
-      await archiveFile(filePath, recipient);
-      await sendSms(recipient, snsTopicArn);
-      console.log(`All done for ${recipient.name}! 👋`);
-    });
+        await sendInvoiceEmail(file, recipient);
+        await archiveFile(filePath, recipient);
+        await sendSms(recipient, snsTopicArn);
+        console.log(`All done for ${recipient.name}! 👋`);
+      })
+    );
+    console.log('Send That Invoice Lambda completed!');
   } catch (error) {
     if (sentryDsn && nodeEnv != 'development') {
       Sentry.init({ dsn: sentryDsn });
@@ -36,5 +39,4 @@ module.exports.main = async () => {
     }
     console.error(error);
   }
-  console.log('Send That Invoice Lambda completed!');
 };
