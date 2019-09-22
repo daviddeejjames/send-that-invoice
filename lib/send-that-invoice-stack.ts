@@ -1,15 +1,14 @@
 import { StackProps } from '../bin/send-that-invoice';
+import { Topic } from '@aws-cdk/aws-sns';
 import s3 = require('@aws-cdk/aws-s3');
 import events = require('@aws-cdk/aws-events');
 import targets = require('@aws-cdk/aws-events-targets');
 import lambda = require('@aws-cdk/aws-lambda');
 import cdk = require('@aws-cdk/core');
-import { CodeBuildProject } from '@aws-cdk/aws-events-targets';
 
 export class SendThatInvoiceStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
     super(scope, id, props);
-
     // Ensure all ENV vars are set
     if (Object.values(props).every(item => item)) {
       const {
@@ -19,6 +18,7 @@ export class SendThatInvoiceStack extends cdk.Stack {
         mailPass,
         mailHost,
         mailPort,
+
         mailReplyTo,
         dropboxToken,
         snsTopicArn,
@@ -52,6 +52,13 @@ export class SendThatInvoiceStack extends cdk.Stack {
       });
 
       bucket.grantReadWrite(lambdaFn);
+      const snsTopic = Topic.fromTopicArn(
+        this,
+        'SendThatInvoice',
+        `${snsTopicArn}`
+      );
+      snsTopic.grantPublish(lambdaFn);
+
       // Run every day at 6PM UTC
       // See https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html
       const rule = new events.Rule(this, 'send-that-invoice-cron-rule', {
