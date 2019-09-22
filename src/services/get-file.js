@@ -6,8 +6,8 @@ const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
  *
  * @param {String} path - the path of the file we are after
  */
-const getFile = async (filePath) => {
-  const file = await dbx.filesDownload({ path: filePath })
+const getFile = filePath => {
+  const file = dbx.filesDownload({ path: filePath })
     .then(response => {
       return response;
     })

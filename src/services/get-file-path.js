@@ -8,8 +8,8 @@ const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
  * @param {Array} entries - File entries found from Dropbox API
  * @param {String} filePrefix - the prefix of the file we are after
  */
-const getFilePath = async filePrefix => {
-  return await dbx
+const getFilePath = filePrefix => {
+  return dbx
     .filesListFolder({ path: '' })
     .then(response => {
       let filePath;
@@ -20,16 +20,11 @@ const getFilePath = async filePrefix => {
           filePath = element.path_display; // Note: only works with one file of that name
         }
       });
-
+      
       if (filePath) {
-        return filePath;
-      } else {
-        throw new Error('No files were found! 😞');
+        console.log('Found the file @' + filePath + ' 🧙 ');
       }
-    })
-    .then(foundPath => {
-      console.log('Found the file @' + foundPath + ' 🧙 ');
-      return foundPath;
+      return filePath;
     })
     .catch(error => {
       return Promise.reject(error);

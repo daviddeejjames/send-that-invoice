@@ -6,10 +6,10 @@ const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });
  *
  * @param {String} path - the path of the file we are after
  */
-const archiveFile = async (path, recipient) => {
+const archiveFile = (path, recipient) => {
   const subFolderName = recipient.name;
 
-  return await dbx.filesMove({
+  return dbx.filesMove({
     from_path: path,
     to_path: '/archived/' + subFolderName + path,
     allow_shared_folder: true,
