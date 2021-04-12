@@ -10,7 +10,7 @@ export class SendThatInvoiceStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
     super(scope, id, props);
     // Ensure all ENV vars are set
-    if (Object.values(props).every(item => item)) {
+    if (Object.values(props).every((item) => item)) {
       const {
         dataBucket,
         mailName,
@@ -22,12 +22,12 @@ export class SendThatInvoiceStack extends cdk.Stack {
         mailReplyTo,
         dropboxToken,
         snsTopicArn,
-        sentryDsn
+        sentryDsn,
       } = props;
 
       const bucket = new s3.Bucket(this, `${dataBucket}`, {
         bucketName: dataBucket,
-        versioned: true
+        versioned: true,
       });
 
       const lambdaName = 'send-that-invoice-lambda';
@@ -47,8 +47,8 @@ export class SendThatInvoiceStack extends cdk.Stack {
           MAIL_REPLY_TO: `${mailReplyTo}`,
           DROPBOX_TOKEN: `${dropboxToken}`,
           SNS_TOPIC_ARN: `${snsTopicArn}`,
-          SENTRY_DSN: `${sentryDsn}`
-        }
+          SENTRY_DSN: `${sentryDsn}`,
+        },
       });
 
       bucket.grantReadWrite(lambdaFn);
@@ -62,13 +62,13 @@ export class SendThatInvoiceStack extends cdk.Stack {
       // Run every day at 6PM UTC
       // See https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html
       const rule = new events.Rule(this, 'send-that-invoice-cron-rule', {
-        schedule: events.Schedule.expression('rate(4 hours)')
+        schedule: events.Schedule.expression('rate(1 hour)'),
       });
 
       rule.addTarget(new targets.LambdaFunction(lambdaFn));
     } else {
       console.error(
-        'It seems you haven\'t set one of your ENV vars correctly, please check below'
+        "It seems you haven't set one of your ENV vars correctly, please check below"
       );
       console.error(props);
       process.exit(1);
