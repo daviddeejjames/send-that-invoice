@@ -16,11 +16,11 @@ const getFilePath = filePrefix => {
 
       const entries = response.entries;
       entries.forEach(element => {
-        if (element.name.toLowerCase().startsWith(filePrefix.toLowerCase())) {
+        if (element.name.toLowerCase().includes(filePrefix.toLowerCase())) {
           filePath = element.path_display; // Note: only works with one file of that name
         }
       });
-      
+
       if (filePath) {
         console.log('Found the file @' + filePath + ' 🧙 ');
       }
