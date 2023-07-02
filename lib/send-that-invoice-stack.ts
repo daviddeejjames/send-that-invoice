@@ -36,7 +36,7 @@ export class SendThatInvoiceStack extends cdk.Stack {
         code: lambda.Code.asset('src'),
         handler: 'handler.main',
         timeout: cdk.Duration.seconds(300),
-        runtime: lambda.Runtime.NODEJS_10_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
         environment: {
           DATA_BUCKET: `${bucket.bucketName}`,
           MAIL_NAME: `${mailName}`,

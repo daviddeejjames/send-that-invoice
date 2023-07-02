@@ -1,5 +1,5 @@
 {
-  "name": "send-that-invoice",
+  "name": "send-that-invoice-lambda",
   "version": "1.0.0",
   "description": "A small NodeJS app that automatically emails a file stored in a Dropbox folder",
   "main": "app.js",

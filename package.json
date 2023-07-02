@@ -1,9 +1,6 @@
 {
-  "name": "hello-cdk",
-  "version": "0.1.0",
-  "bin": {
-    "hello-cdk": "bin/hello-cdk.js"
-  },
+  "name": "send-that-invoice-cdk",
+  "version": "2.0.0",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
