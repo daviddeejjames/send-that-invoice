@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
 import { SendThatInvoiceStack } from '../lib/send-that-invoice-stack';
-import { App, Environment } from '@aws-cdk/core';
+import { App, Environment } from 'aws-cdk-lib';
 
 export interface StackProps {
   env: Environment;
