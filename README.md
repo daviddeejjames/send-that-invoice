@@ -15,7 +15,7 @@ Also sends a text message via AWS SNS to verify an email has been sent.
 - AWS CDK - for deployment to AWS
 
 ## How It Works 🔧
-The application was made for a very specific use case, however the general problem it resolves is to automate sending an invoice to a client.
+The application was made for a very specific use case, however the general problem it solves is to automate sending an invoice to a client.
 
 This invoice is usually handwritten, scanned and uploaded to Dropbox. In the past, this would be then manually sent via email.
 
