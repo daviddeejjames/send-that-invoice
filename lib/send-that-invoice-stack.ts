@@ -1,13 +1,14 @@
+import * as cdk from "aws-cdk-lib";
+import { Construct } from "constructs";
 import { StackProps } from '../bin/send-that-invoice';
-import { Topic } from '@aws-cdk/aws-sns';
-import s3 = require('@aws-cdk/aws-s3');
-import events = require('@aws-cdk/aws-events');
-import targets = require('@aws-cdk/aws-events-targets');
-import lambda = require('@aws-cdk/aws-lambda');
-import cdk = require('@aws-cdk/core');
+import { aws_s3 as s3 } from 'aws-cdk-lib';
+import { aws_sns as sns } from "aws-cdk-lib";  
+import { aws_events as events } from 'aws-cdk-lib';
+import { aws_events_targets as targets } from 'aws-cdk-lib';
+import { aws_lambda as lambda } from 'aws-cdk-lib';   
 
 export class SendThatInvoiceStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props: StackProps) {
+  constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
     // Ensure all ENV vars are set
     if (Object.values(props).every((item) => item)) {
@@ -33,10 +34,10 @@ export class SendThatInvoiceStack extends cdk.Stack {
       const lambdaName = 'send-that-invoice-lambda';
       const lambdaFn = new lambda.Function(this, lambdaName, {
         functionName: lambdaName,
-        code: lambda.Code.asset('src'),
+        code: lambda.Code.fromAsset('src'),
         handler: 'handler.main',
         timeout: cdk.Duration.seconds(300),
-        runtime: lambda.Runtime.NODEJS_10_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
         environment: {
           DATA_BUCKET: `${bucket.bucketName}`,
           MAIL_NAME: `${mailName}`,
@@ -52,15 +53,13 @@ export class SendThatInvoiceStack extends cdk.Stack {
       });
 
       bucket.grantReadWrite(lambdaFn);
-      const snsTopic = Topic.fromTopicArn(
+      const snsTopic = sns.Topic.fromTopicArn(
         this,
         'SendThatInvoice',
         `${snsTopicArn}`
       );
       snsTopic.grantPublish(lambdaFn);
 
-      // Run every day at 6PM UTC
-      // See https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-expressions.html
       const rule = new events.Rule(this, 'send-that-invoice-cron-rule', {
         schedule: events.Schedule.expression('rate(1 hour)'),
       });

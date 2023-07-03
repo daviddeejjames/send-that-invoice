@@ -1,9 +1,6 @@
 {
-  "name": "hello-cdk",
-  "version": "0.1.0",
-  "bin": {
-    "hello-cdk": "bin/hello-cdk.js"
-  },
+  "name": "send-that-invoice-cdk",
+  "version": "2.0.0",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
@@ -14,17 +11,14 @@
     "copy-data": "auto/copy-data-folder-to-s3.sh"
   },
   "devDependencies": {
-    "aws-cdk": "^1.9.0",
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.2.66",
     "ts-node": "^8.4.1",
-    "typescript": "~3.6.3"
+    "typescript": "~3.9.0"
   },
   "dependencies": {
-    "@aws-cdk/aws-events": "^1.9.0",
-    "@aws-cdk/aws-events-targets": "^1.9.0",
-    "@aws-cdk/aws-lambda": "^1.9.0",
-    "@aws-cdk/aws-s3": "^1.9.0",
-    "@aws-cdk/aws-sns": "^1.9.0",
-    "@aws-cdk/core": "^1.9.0",
-    "source-map-support": "^0.5.13"
+    "@types/node": "^20.3.3",
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.2.66"
   }
 }
