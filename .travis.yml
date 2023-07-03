@@ -1,4 +1,5 @@
 language: node_js
+dist: jammy # Tells Travis to use later Ubunut for Node 18 compatability
 
 env:
   global:
