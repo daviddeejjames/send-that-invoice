@@ -14,7 +14,7 @@ const sendSms = async (recipient, snsTopicArn) => {
   console.log('Sending SMS to Mum via SNS! 📱');
 
   const sns_params = {
-    Message: `Invoice sent to ${recipient.name}! 📤 from your friendly robot 🤖`,
+    Message: `Invoice sent to ${recipient.name} - ${recipient.email}! 📤 from your friendly robot 🤖`,
     TopicArn: snsTopicArn
   };
   const publishTextPromise =
