@@ -1,7 +1,5 @@
 # send-that-invoice 📤
 
-![Build Status](https://app.travis-ci.com/daviddeejjames/send-that-invoice.svg?branch=master)
-
 Node.js Lambda that automatically emails a file from a given Dropbox folder.
 Also sends a text message via AWS SNS to verify an email has been sent.
 
